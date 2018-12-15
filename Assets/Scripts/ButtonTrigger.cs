@@ -5,6 +5,7 @@ using UnityEngine;
 public class ButtonTrigger : MonoBehaviour
 {
     public GameObject wall;
+    public GameObject text;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class ButtonTrigger : MonoBehaviour
         {
 
                 wall.SetActive(false);
+                text.SetActive(true);
 
         }
     }

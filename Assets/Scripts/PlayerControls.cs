@@ -12,7 +12,12 @@ public class PlayerControls : MonoBehaviour
     public GameObject rayOrigin;
     public float rayCheckDistance;
     Rigidbody2D rb;
+
     public Transform groundCheck;
+
+    public Animator animator;
+
+    private bool grounded = false;
 
 
     private void Start()
@@ -23,23 +28,33 @@ public class PlayerControls : MonoBehaviour
     void FixedUpdate()
     {
         float x = Input.GetAxis("Horizontal");
+
+        animator.SetFloat("speed", Mathf.Abs(x));
+
+        grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
+
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin.transform.position, Vector2.down, rayCheckDistance);
             if (hit.collider != null)
             {
+                animator.SetBool("isJumping", true);
                 rb.velocity = Vector2.up * jump;
             }
         }
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            animator.SetBool("isJumping", false);
         }
         else if(rb.velocity.y>0 && !Input.GetButton("Jump")){
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
         rb.velocity = new Vector3(x * speed, rb.velocity.y, 0);
+
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

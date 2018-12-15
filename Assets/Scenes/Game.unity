@@ -236,6 +236,7 @@ MonoBehaviour:
   rayOrigin: {fileID: 1892347004}
   rayCheckDistance: 0.1
   groundCheck: {fileID: 1892347005}
+  animator: {fileID: 15456910}
 --- !u!70 &15456914
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -249,8 +250,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 4.9999995, y: 4.9999995}
+  m_Offset: {x: -0.11, y: 0}
+  m_Size: {x: 3.86, y: 4.9999995}
   m_Direction: 0
 --- !u!50 &15456915
 Rigidbody2D:

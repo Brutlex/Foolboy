@@ -12,12 +12,14 @@ public class PlayerControls : MonoBehaviour
     public GameObject rayOrigin;
     public float rayCheckDistance;
     Rigidbody2D rb;
+    public BoxCollider2D boxCollider;
 
     public Transform groundCheck;
 
     public Animator animator;
 
     private bool grounded = false;
+    public bool crouch;
 
 
     private void Start()
@@ -28,11 +30,9 @@ public class PlayerControls : MonoBehaviour
     void FixedUpdate()
     {
         float x = Input.GetAxis("Horizontal");
+            animator.SetFloat("speed", Mathf.Abs(x));
 
-        animator.SetFloat("speed", Mathf.Abs(x));
-
-        grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
-
+        //jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
@@ -43,6 +43,7 @@ public class PlayerControls : MonoBehaviour
                 rb.velocity = Vector2.up * jump;
             }
         }
+
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -54,7 +55,27 @@ public class PlayerControls : MonoBehaviour
 
         rb.velocity = new Vector3(x * speed, rb.velocity.y, 0);
 
-        
+        //crouch
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if(GetComponent<CharacterController>() != null)
+            {
+                boxCollider = this.GetComponent<BoxCollider2D>();
+            }
+           
+            animator.SetBool("isCrouching", true);
+            crouch = true;
+            boxCollider.size = new Vector2(2.41f,2.8f);
+            boxCollider.offset = new Vector2(-0.13f, -0.6f);
+        } else if (Input.GetKeyUp(KeyCode.C))
+        {
+            animator.SetBool("isCrouching", false);
+            crouch = false;
+            boxCollider.size = new Vector2(2.41f, 4.89f);
+            boxCollider.offset = new Vector2(-0.13f, 0f);
+        }
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -12,6 +12,7 @@ public class PickUpObjects : MonoBehaviour
     public Transform guide;
     public bool carrying;
     public float range;
+    public Animator animator;
     
 
     // Use this for initialization
@@ -43,6 +44,7 @@ public class PickUpObjects : MonoBehaviour
     }
     void pickup()
     {
+        animator.SetBool("isHolding", true);
         item.GetComponent<Rigidbody2D>().simulated = false;
         item.GetComponent<Rigidbody2D>().isKinematic = true;
         item.transform.position = guide.transform.position;
@@ -51,6 +53,7 @@ public class PickUpObjects : MonoBehaviour
     }
     void drop()
     {
+        animator.SetBool("isHolding", false);
         item.GetComponent<Rigidbody2D>().simulated = true;
         item.GetComponent<Rigidbody2D>().isKinematic = false;
         item.transform.parent = null;

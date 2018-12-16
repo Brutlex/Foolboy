@@ -44,6 +44,7 @@ public class PlayerControls : MonoBehaviour
         if(x > 0)
         {
             soundWalk.SetActive(true);
+            dieSound.SetActive(false);
         }else if(x == 0)
         {
             soundWalk.SetActive(false);
@@ -109,7 +110,8 @@ public class PlayerControls : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle")
         {
             print("dead");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            rb.transform.position = new Vector2(-5,0);
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             dieSound.SetActive(true);
         }
     }

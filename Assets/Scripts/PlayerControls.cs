@@ -41,7 +41,7 @@ public class PlayerControls : MonoBehaviour
             animator.SetFloat("speed", Mathf.Abs(x));
 
         
-        if(x > 0)
+        if(x != 0)
         {
             soundWalk.SetActive(true);
             dieSound.SetActive(false);

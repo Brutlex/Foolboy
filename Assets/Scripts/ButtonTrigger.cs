@@ -5,7 +5,6 @@ using UnityEngine;
 public class ButtonTrigger : MonoBehaviour
 {
     public GameObject wall;
-    public GameObject text;
     public GameObject audio_switch;
 
     // Start is called before the first frame update
@@ -26,7 +25,6 @@ public class ButtonTrigger : MonoBehaviour
         {
             audio_switch.SetActive(true);
                 wall.SetActive(false);
-                text.SetActive(true);
 
         }
     }

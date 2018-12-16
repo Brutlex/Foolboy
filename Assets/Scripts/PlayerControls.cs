@@ -12,7 +12,7 @@ public class PlayerControls : MonoBehaviour
     public GameObject rayOrigin;
     public float rayCheckDistance;
     Rigidbody2D rb;
-    public BoxCollider2D boxCollider;
+    public CapsuleCollider2D capsuleCollider;
 
     public Transform groundCheck;
 
@@ -52,7 +52,7 @@ public class PlayerControls : MonoBehaviour
         
 
         //jump
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin.transform.position, Vector2.down, rayCheckDistance);
@@ -78,23 +78,23 @@ public class PlayerControls : MonoBehaviour
         rb.velocity = new Vector3(x * speed, rb.velocity.y, 0);
 
         //crouch
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             if(GetComponent<CharacterController>() != null)
             {
-                boxCollider = this.GetComponent<BoxCollider2D>();
+                capsuleCollider = this.GetComponent<CapsuleCollider2D>();
             }
            
             animator.SetBool("isCrouching", true);
             crouch = true;
-            boxCollider.size = new Vector2(2.41f,2.8f);
-            boxCollider.offset = new Vector2(-0.13f, 0f);
-        } else if (Input.GetKeyUp(KeyCode.C))
+            capsuleCollider.size = new Vector2(2.41f,2.8f);
+            capsuleCollider.offset = new Vector2(-0.13f, 0f);
+        } else if (Input.GetKeyUp(KeyCode.S))
         {
             animator.SetBool("isCrouching", false);
             crouch = false;
-            boxCollider.size = new Vector2(2.41f, 4.89f);
-            boxCollider.offset = new Vector2(-0.13f, 0f);
+            capsuleCollider.size = new Vector2(2.41f, 4.89f);
+            capsuleCollider.offset = new Vector2(-0.13f, 0f);
         }
 
 
@@ -127,7 +127,7 @@ public class PlayerControls : MonoBehaviour
     {
         if(trig.gameObject.tag == "Powerup")
         {
-            jump = jump * 1.5f;
+            jump = jump * 2f;
             powerup.SetActive(false);
         }
     }

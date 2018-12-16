@@ -13,7 +13,7 @@ public class FinishLever : MonoBehaviour
         {
             audio_switch.SetActive(true);
             print("load scene");
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(3);
 
         }
     }

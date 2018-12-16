@@ -5,35 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class ParticleCollision : MonoBehaviour
 {
-    public ParticleSystem pSystem;
-    public ParticleCollisionEvent[] CollisionEvents = new ParticleCollisionEvent[10];
-
-    private void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        pSystem = GetComponent<ParticleSystem>();
-    }
-
-    public void OnParticleCollision(GameObject other)
-    {
-
-        //print("entered collision method");
-        int collCount = pSystem.GetSafeCollisionEventSize();
-
-        if(collCount < 0)
+        if (collision.gameObject.tag == "Player")
         {
-            CollisionEvents = new ParticleCollisionEvent[collCount];
-            //print("detected "+collCount+". collision");
+            print("dead");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-
-        int eventCount = pSystem.GetCollisionEvents(other, CollisionEvents);
-
-        for(int i = 0; i < eventCount; i++)
-        {
-            if(other.tag == "Player")
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
-        }
-
     }
 }

@@ -20,11 +20,13 @@ public class PlayerControls : MonoBehaviour
 
     private bool grounded = false;
     public bool crouch;
+    public GameObject powerup;
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        powerup.SetActive(true);
     }
 
     void FixedUpdate()
@@ -97,6 +99,14 @@ public class PlayerControls : MonoBehaviour
         if (collision.gameObject.tag == "Platform")
         {
             this.transform.parent = null;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D trig)
+    {
+        if(trig.gameObject.tag == "Powerup")
+        {
+            jump = jump * 1.5f;
+            powerup.SetActive(false);
         }
     }
 }

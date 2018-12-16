@@ -22,11 +22,17 @@ public class PlayerControls : MonoBehaviour
     public bool crouch;
     public GameObject powerup;
 
+    public GameObject soundWalk;
+    public GameObject jumpSound;
+    public GameObject dieSound;
+
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         powerup.SetActive(true);
+        jumpSound.SetActive(false);
+        dieSound.SetActive(false);
     }
 
     void FixedUpdate()
@@ -34,14 +40,25 @@ public class PlayerControls : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
             animator.SetFloat("speed", Mathf.Abs(x));
 
+        
+        if(x > 0)
+        {
+            soundWalk.SetActive(true);
+        }else if(x == 0)
+        {
+            soundWalk.SetActive(false);
+        }
+        
+
         //jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
+            
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin.transform.position, Vector2.down, rayCheckDistance);
             if (hit.collider != null)
             {
                 animator.SetBool("isJumping", true);
+                jumpSound.SetActive(true);
                 rb.velocity = Vector2.up * jump;
             }
         }
@@ -50,6 +67,8 @@ public class PlayerControls : MonoBehaviour
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
             animator.SetBool("isJumping", false);
+            jumpSound.SetActive(false);
+
         }
         else if(rb.velocity.y>0 && !Input.GetButton("Jump")){
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
@@ -91,6 +110,7 @@ public class PlayerControls : MonoBehaviour
         {
             print("dead");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            dieSound.SetActive(true);
         }
     }
 

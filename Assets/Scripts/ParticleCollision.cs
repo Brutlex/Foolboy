@@ -11,6 +11,7 @@ public class ParticleCollision : MonoBehaviour
     private void Start()
     {
         pSystem = GetComponent<ParticleSystem>();
+
     }
 
     public void OnParticleCollision(GameObject other)
@@ -32,6 +33,7 @@ public class ParticleCollision : MonoBehaviour
             //print("works!!!");
             if (other.tag == "Player")
             {
+
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }

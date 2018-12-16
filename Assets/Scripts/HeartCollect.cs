@@ -7,13 +7,26 @@ public class HeartCollect : MonoBehaviour
 
     public GameObject hearts;
     public GameObject explosion;
-    public Animator ExplosionAnimator;
+    public bool activated;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            
+            hearts.SetActive(false);
+            explosion.SetActive(true);
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            explosion.SetActive(false);
+        }
+        
+    }
+
+
 }

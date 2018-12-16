@@ -68,7 +68,7 @@ public class PlayerControls : MonoBehaviour
             animator.SetBool("isCrouching", true);
             crouch = true;
             boxCollider.size = new Vector2(2.41f,2.8f);
-            boxCollider.offset = new Vector2(-0.13f, -0.6f);
+            boxCollider.offset = new Vector2(-0.13f, 0f);
         } else if (Input.GetKeyUp(KeyCode.C))
         {
             animator.SetBool("isCrouching", false);
